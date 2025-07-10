@@ -66,6 +66,8 @@ const search = async () => {
   // console.log(res.data);
   if (res.data.resultCount > 0) {
     list.value = res.data.results;
+  } else {
+    list.value = [];
   }
   loading.value = false;
 
@@ -83,6 +85,12 @@ const onKeywordChange = (_) => {
   if (ruleForm.name === '') {
     list.value = [];
     options.value = districts.value;
+  }
+};
+
+const onCountryChange = (_) => {
+  if (ruleForm.name !== '') {
+    search();
   }
 };
 
@@ -134,7 +142,8 @@ onMounted(async () => {
       </el-form-item>
 
       <el-form-item label="Country/District" prop="country">
-        <el-select v-model="ruleForm.country" placeholder="Select" filterable :filter-method="filterMethod">
+        <el-select v-model="ruleForm.country" placeholder="Select" filterable :filter-method="filterMethod"
+          @change="onCountryChange">
           <el-option v-for="item in options" :key="item.cca2" :label="item.name.common" :value="item.cca2">
             <div>
               <img :src="item.flags.png" class="w-8 inline-block align-middle" alt="">
