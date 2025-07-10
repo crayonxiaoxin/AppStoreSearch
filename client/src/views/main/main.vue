@@ -35,7 +35,9 @@ const loading = ref(false);
 const getDistricts = async () => {
   loading.value = true;
   const res = await axios.get('/api/country');
-  districts.value = res.data;
+  const tmp = res.data;
+  tmp.sort((a, b) => a.name.common.charCodeAt(0) - b.name.common.charCodeAt(0));
+  districts.value = tmp;
   options.value = districts.value;
   loading.value = false;
 };
@@ -107,7 +109,7 @@ onMounted(async () => {
   if (route.query) {
     ruleForm.name = route.query.term != null ? route.query.term as string : '';
     if (route.query.country != null) {
-      ruleForm.country = route.query.country as string || '';
+      ruleForm.country = (route.query.country as string || '').toUpperCase();
     }
     if (ruleForm.name != '' && ruleForm.country != '') {
       await search();
