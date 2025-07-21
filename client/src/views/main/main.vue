@@ -132,7 +132,7 @@ onMounted(async () => {
 
     <div class="pb-6">
       <div class="text-2xl font-bold">
-        App Search
+        <img src="/logo.png" class="inline-block align-middle w-32 mr-2" alt="">
       </div>
       <div class="!mt-3 text-sm text-gray-600">Search for apps in the app store from any country or region.</div>
     </div>
