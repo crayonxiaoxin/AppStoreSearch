@@ -5,7 +5,7 @@
 
 采用 `nestjs` + `vue3` + `element-plus` 构建。
 
-> 查看 [demo](https://app-search.rmb.ee)
+> 查看 [demo](https://app-search.rmb.ee/?term=wechat&country=US)
 
 > 查看 api 文档 [/api-docs](https://app-search.rmb.ee/api-docs)
 
