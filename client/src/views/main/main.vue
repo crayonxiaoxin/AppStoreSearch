@@ -4,6 +4,7 @@ import { onMounted, ref, reactive, toRaw, watch } from 'vue';
 
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
+import dayjs, { Dayjs } from 'dayjs';
 
 const router = useRouter()
 
@@ -62,7 +63,7 @@ const search = async () => {
       term: params.name,
       country: params.country,
       media: 'software',
-      limit: 50,
+      limit: 60, // 不清楚为何用 50 时，会返回旧数据
     }
   });
   // console.log(res.data);
@@ -172,9 +173,9 @@ onMounted(async () => {
           <el-image class="w-full rounded-3xl shadow-md border-solid border-gray-200 aspect-square" fit="fill"
             :src="item.artworkUrl512" />
         </div>
-        <div class="flex-2">
+        <div class="flex-2 text-sm">
           <div class="">
-            <span class="!font-bold text-md md:text-lg align-middle">{{ item.trackName }}</span>
+            <span class="!font-bold !text-base md:text-lg align-middle">{{ item.trackName }}</span>
             <span
               class="border-1 border-solid border-gray-900 rounded-sm text-xs px-[2px] !ml-2 inline-block align-middle">
               {{ item.contentAdvisoryRating }}</span>
@@ -188,10 +189,11 @@ onMounted(async () => {
             <el-rate :model-value="Math.floor(item.averageUserRating * 10) / 10" disabled show-score size="small"
               text-color="#ff9900" score-template="{value}" />
           </div>
-          <div>
+          <div class="py-1">
             <span class="inline-block !mr-2 text-gray-500">v{{ item.version }}</span>
             <span class="inline-block text-green-800">{{ item.formattedPrice }}</span>
           </div>
+          <div class="text-xs text-gray-500 pb-1">{{ dayjs(item.currentVersionReleaseDate).format('YYYY-MM-DD') }}</div>
           <a :href="item.trackViewUrl" target="_blank"
             class="inline-block border-1 border-solid border-[#0070c9] text-[#0070c9] rounded-sm text-sm px-3 py-[2px] !mt-1">View
             in
